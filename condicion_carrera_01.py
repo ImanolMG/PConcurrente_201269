@@ -9,18 +9,20 @@ class Boletos():
         print("se bloquen todos los hilos")
 
     def comprar(self, y):
-        if self.boletos == 0:
-            print("Ya no hay boletos disponibles")
-        self.locked.acquire()
-        try:
-            print("Turno " , y)
-            print("Cuantos boletos desea comprar")
-            can_boletos = input()
-            self.boletos = self.boletos - int(can_boletos)
+          self.locked.acquire()
+          try:
+             if (self.boletos) < 1:
+                print("Ya no hay boletos disponibles")
+             else:
+                print("Turno " , y)
+                print("Cuantos boletos desea comprar")
+                can_boletos = input()
+                self.boletos = self.boletos - int(can_boletos)
             
-        finally:
+          finally:
             self.locked.release()
             print("Boletos Restantes: ", self.boletos)
+            
 
 def ventaboletos(x, y):
     x.comprar(y)
