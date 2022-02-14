@@ -1,6 +1,4 @@
 import threading
-import time
-import random
 
 class Boletos():
     def __init__(self) :
