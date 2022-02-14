@@ -6,22 +6,28 @@ class Boletos():
     def __init__(self) :
         self.boletos = 1000
         self.locked = threading.Lock()
-        print("se bloquen todos los hilos")
-
+        print("Se forma la fila")
+        print("Boletos Disponibles: ", self.boletos)
     def comprar(self, y):
           self.locked.acquire()
+          
           try:
              if (self.boletos) < 1:
+                print("Turno " , y)
                 print("Ya no hay boletos disponibles")
              else:
                 print("Turno " , y)
-                print("Cuantos boletos desea comprar")
-                can_boletos = input()
-                self.boletos = self.boletos - int(can_boletos)
+                can_boletos = input("Cuantos boletos desea comprar?: ")
+                if int(can_boletos) > self.boletos:
+                   print("Solo quedan", self.boletos, "Boletos" )
+                   can_boletos = input("Cuantos boletos desea comprar?: ")
+                   self.boletos = self.boletos - int(can_boletos)
+                else:
+                   self.boletos = self.boletos - int(can_boletos)
             
           finally:
             self.locked.release()
-            print("Boletos Restantes: ", self.boletos)
+            print("Boletos Disponibles: ", self.boletos)
             
 
 def ventaboletos(x, y):
